@@ -52,8 +52,8 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
 
       const data = await response.json();
       setMealPlan(data);
-      // Auto-expand first day
-      if (data.plano_semanal && data.plano_semanal.length > 0) {
+      
+      if (data?.plano_semanal && data.plano_semanal.length > 0) {
         setExpandedDay(data.plano_semanal[0].dia);
       }
     } catch (err: any) {
@@ -65,21 +65,30 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
   };
 
   const handleEditOption = (dayIndex: number, mealKey: string, optionIndex: number, newValue: string) => {
-    const newPlan = { ...mealPlan };
-    newPlan.plano_semanal[dayIndex].refeicoes[mealKey][optionIndex] = newValue;
-    setMealPlan(newPlan);
+    if (!mealPlan) return;
+    const newPlan = JSON.parse(JSON.stringify(mealPlan));
+    if (newPlan.plano_semanal[dayIndex]?.refeicoes[mealKey]) {
+      newPlan.plano_semanal[dayIndex].refeicoes[mealKey][optionIndex] = newValue;
+      setMealPlan(newPlan);
+    }
   };
 
   const handleAddOption = (dayIndex: number, mealKey: string) => {
-    const newPlan = { ...mealPlan };
-    newPlan.plano_semanal[dayIndex].refeicoes[mealKey].push('');
-    setMealPlan(newPlan);
+    if (!mealPlan) return;
+    const newPlan = JSON.parse(JSON.stringify(mealPlan));
+    if (newPlan.plano_semanal[dayIndex]?.refeicoes[mealKey]) {
+      newPlan.plano_semanal[dayIndex].refeicoes[mealKey].push('');
+      setMealPlan(newPlan);
+    }
   };
 
   const handleRemoveOption = (dayIndex: number, mealKey: string, optionIndex: number) => {
-    const newPlan = { ...mealPlan };
-    newPlan.plano_semanal[dayIndex].refeicoes[mealKey].splice(optionIndex, 1);
-    setMealPlan(newPlan);
+    if (!mealPlan) return;
+    const newPlan = JSON.parse(JSON.stringify(mealPlan));
+    if (newPlan.plano_semanal[dayIndex]?.refeicoes[mealKey]) {
+      newPlan.plano_semanal[dayIndex].refeicoes[mealKey].splice(optionIndex, 1);
+      setMealPlan(newPlan);
+    }
   };
 
   const getMealIcon = (key: string) => {
@@ -248,8 +257,8 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
           </div>
 
           <div className="days-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            {mealPlan.plano_semanal.map((dia: any, dayIndex: number) => (
-              <div key={dia.dia} className="day-card" style={{ 
+            {mealPlan?.plano_semanal?.map((dia: any, dayIndex: number) => (
+              <div key={dia.dia || dayIndex} className="day-card" style={{ 
                 backgroundColor: 'white', 
                 borderRadius: '20px', 
                 boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)', 
@@ -285,7 +294,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                       fontSize: '1.2rem',
                       boxShadow: '0 4px 6px -1px rgba(46, 204, 113, 0.2)'
                     }}>
-                      {dia.dia.charAt(0)}
+                      {dia.dia?.charAt(0) || 'D'}
                     </div>
                     <span style={{ fontWeight: 800, fontSize: '1.3rem', color: 'var(--text-color)' }}>{dia.dia}</span>
                   </div>
@@ -295,7 +304,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                 {expandedDay === dia.dia && (
                   <div className="day-body" style={{ padding: '2.5rem' }}>
                     <div className="meals-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-                      {Object.entries(dia.refeicoes).map(([mealKey, options]: [string, any]) => (
+                      {dia.refeicoes && Object.entries(dia.refeicoes).map(([mealKey, options]: [string, any]) => (
                         <div key={mealKey} className="meal-section" style={{ display: 'flex', flexDirection: 'column' }}>
                           <div style={{ 
                             display: 'flex', 
@@ -320,7 +329,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                           </div>
                           
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            {options.map((option: string, optIndex: number) => (
+                            {Array.isArray(options) && options.map((option: string, optIndex: number) => (
                               <div key={optIndex} className="option-input-wrapper group" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                                 <div style={{ 
                                   flex: 1, 
@@ -484,4 +493,3 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
     </div>
   );
 };
-
