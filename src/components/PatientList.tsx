@@ -114,7 +114,7 @@ export const PatientList: React.FC = () => {
                   <tr key={patient.id} onClick={() => navigate(`/pacientes/${patient.id}`)}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#f0fdf4', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(0, 240, 255, 0.1)', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <User size={18} />
                         </div>
                         <span style={{ fontWeight: 600 }}>{patient.nome}</span>
@@ -131,7 +131,7 @@ export const PatientList: React.FC = () => {
         ) : (
           <div className="form-card" style={{ textAlign: 'center', padding: '4rem' }}>
             <p className="empty-message">Nenhum paciente encontrado.</p>
-            {searchTerm && <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.5rem' }}>Tente buscar por outro nome.</p>}
+            {searchTerm && <p style={{ fontSize: '0.85rem', color: '#a1a1aa', marginTop: '0.5rem' }}>Tente buscar por outro nome.</p>}
             {!searchTerm && !patients.length && (
               <button 
                 className="btn-primary" 

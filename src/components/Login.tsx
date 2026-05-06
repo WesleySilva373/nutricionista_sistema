@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Leaf } from 'lucide-react';
+import { Leaf, LogIn } from 'lucide-react';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
     });
 
     if (error) {
-      setError('Email ou senha incorretos. Por favor, tente novamente.');
+      setError('Email ou senha inválidos.');
       setLoading(false);
     } else {
       navigate('/dashboard');
@@ -29,49 +29,61 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div className="logo">
-          <Leaf size={32} />
-          <span>NutriSystem</span>
+    <>
+      <div className="modern-auth-content">
+        <div className="modern-auth-left">
+          <div className="modern-auth-logo">
+            <Leaf size={36} />
+            <span>NutriSystem</span>
+          </div>
+          <h1>
+            Bem-vindo<br />
+            de volta
+          </h1>
+          <p>
+            Acesse seu painel para visualizar o progresso de seus pacientes, criar novos 
+            planos alimentares com IA e gerenciar sua clínica de onde estiver.
+          </p>
         </div>
-        <h1 className="auth-title">Bem-vindo de volta</h1>
-        <p className="auth-subtitle">Entre com suas credenciais para acessar o sistema</p>
 
-        {error && <div className="error-message">{error}</div>}
+        <div className="modern-auth-right">
+          <div className="modern-auth-card">
+            {error && <div className="error-message" style={{ backgroundColor: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.3)' }}>{error}</div>}
 
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label htmlFor="email">E-mail</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="exemplo@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <form onSubmit={handleLogin}>
+              <div className="form-group">
+                <label htmlFor="email">E-mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="exemplo@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Senha</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+                {loading ? 'Entrando...' : <><LogIn size={20} /> Entrar no sistema</>}
+              </button>
+            </form>
+
+            <div className="auth-footer">
+              Ainda não tem conta? <Link to="/register">Cadastre-se</Link>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Senha</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
-
-        <div className="auth-footer">
-          Não tem conta? <Link to="/register">Cadastre-se</Link>
         </div>
       </div>
-    </div>
+    </>
   );
 };

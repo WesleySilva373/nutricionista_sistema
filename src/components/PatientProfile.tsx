@@ -309,7 +309,7 @@ export const PatientProfile: React.FC = () => {
               <ArrowLeft size={16} /> Voltar para lista
             </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-              <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#f0fdf4', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: 'rgba(0, 240, 255, 0.1)', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <User size={24} />
               </div>
               <div>
@@ -466,7 +466,7 @@ export const PatientProfile: React.FC = () => {
 
           {/* Gráfico de Evolução */}
           <div className="chart-container">
-            <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', color: '#64748b' }}>Evolução de Peso (kg)</h3>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', color: '#a1a1aa' }}>Evolução de Peso (kg)</h3>
             {consultations.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData}>
@@ -476,9 +476,9 @@ export const PatientProfile: React.FC = () => {
                       <stop offset="95%" stopColor="var(--primary-color)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} domain={['dataMin - 2', 'dataMax + 2']} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255, 255, 255, 0.08)" />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#e4e4e7', fontSize: 12}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#e4e4e7', fontSize: 12}} domain={['dataMin - 2', 'dataMax + 2']} />
                   <Tooltip 
                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: 'var(--shadow)' }}
                     itemStyle={{ color: 'var(--primary-color)', fontWeight: 600 }}
@@ -487,7 +487,7 @@ export const PatientProfile: React.FC = () => {
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
-              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontStyle: 'italic' }}>
+              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#e4e4e7', fontStyle: 'italic' }}>
                 Nenhuma consulta registrada ainda para gerar o gráfico.
               </div>
             )}
@@ -574,7 +574,7 @@ export const PatientProfile: React.FC = () => {
                       <FileText size={18} color="var(--primary-color)" />
                       Plano gerado em {formatDate(plan.created_at)}
                     </div>
-                    <ChevronRight size={18} color="#94a3b8" />
+                    <ChevronRight size={18} color="#e4e4e7" />
                   </div>
                 ))
               ) : (
@@ -603,18 +603,18 @@ export const PatientProfile: React.FC = () => {
             <div className="modal-body">
               <div className="days-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 {selectedPlan.conteudo.plano_semanal.map((dia: any) => (
-                  <div key={dia.dia} style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: '1.5rem' }}>
+                  <div key={dia.dia} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.5rem' }}>
                     <h3 style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>{dia.dia}</h3>
                     <div className="meals-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                       {Object.entries(dia.refeicoes).map(([mealKey, options]: [string, any]) => (
                         <div key={mealKey}>
-                          <h4 style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#64748b', marginBottom: '0.5rem' }}>
+                          <h4 style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#a1a1aa', marginBottom: '0.5rem' }}>
                             {mealKey.replace(/_/g, ' ')}
                           </h4>
                           <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem' }}>
                             {options.map((opt: string, i: number) => (
                               <li key={i} style={{ marginBottom: '4px', display: 'flex', gap: '6px' }}>
-                                <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#cbd5e1', marginTop: '8px' }}></div>
+                                <div style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'rgba(255, 255, 255, 0.2)', marginTop: '8px' }}></div>
                                 {opt}
                               </li>
                             ))}

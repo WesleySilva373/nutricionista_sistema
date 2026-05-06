@@ -29,7 +29,6 @@ export const Register: React.FC = () => {
       return;
     }
 
-    // 1. Sign up user
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
@@ -47,10 +46,9 @@ export const Register: React.FC = () => {
     }
 
     if (authData.user) {
-      // 2. Insert into nutricionistas table
       const { error: dbError } = await supabase.from('nutricionistas').insert([
         {
-          id: authData.user.id, // Primary key should match auth user id
+          id: authData.user.id,
           nome: fullName,
           email: email,
         },
@@ -58,7 +56,6 @@ export const Register: React.FC = () => {
 
       if (dbError) {
         console.error('Error saving profile:', dbError);
-        // We might want to handle this, but the user is already signed up
       }
 
       navigate('/dashboard');
@@ -66,71 +63,84 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div className="logo">
-          <Leaf size={32} />
-          <span>NutriSystem</span>
+    <>
+      <div className="modern-auth-content">
+        <div className="modern-auth-left">
+          <div className="modern-auth-logo">
+            <Leaf size={36} />
+            <span>NutriSystem</span>
+          </div>
+          <h1>
+            Crie planos<br />
+            alimentares em<br />
+            segundos
+          </h1>
+          <p>
+            Gerenciar seus pacientes nunca foi tão fácil. Com o poder da Inteligência Artificial, 
+            você cria dietas personalizadas instantaneamente e foca no que realmente importa: a saúde deles.
+          </p>
         </div>
-        <h1 className="auth-title">Crie sua conta</h1>
-        <p className="auth-subtitle">Comece a gerenciar seus pacientes de forma profissional</p>
 
-        {error && <div className="error-message">{error}</div>}
+        <div className="modern-auth-right">
+          <div className="modern-auth-card">
+            {error && <div className="error-message" style={{ backgroundColor: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.3)' }}>{error}</div>}
 
-        <form onSubmit={handleRegister}>
-          <div className="form-group">
-            <label htmlFor="fullName">Nome Completo</label>
-            <input
-              id="fullName"
-              type="text"
-              placeholder="Sua saúde em primeiro lugar"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">E-mail</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="exemplo@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Senha</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Mínimo 6 caracteres"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmar Senha</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              placeholder="Repita sua senha"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Criando conta...' : 'Criar conta'}
-          </button>
-        </form>
+            <form onSubmit={handleRegister}>
+              <div className="form-group">
+                <label htmlFor="fullName">Nome Completo</label>
+                <input
+                  id="fullName"
+                  type="text"
+                  placeholder="Sua saúde em primeiro lugar"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">E-mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="exemplo@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Senha</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Mínimo 6 caracteres"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirmar Senha</label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Repita sua senha"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Criando conta...' : 'Começar Gratuitamente'}
+              </button>
+            </form>
 
-        <div className="auth-footer">
-          Já tem conta? <Link to="/login">Faça login</Link>
+            <div className="auth-footer">
+              Já tem conta? <Link to="/login">Faça login</Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard';
 import { PatientList } from './components/PatientList';
 import { PatientForm } from './components/PatientForm';
 import { PatientProfile } from './components/PatientProfile';
+import { InteractiveBackground } from './components/InteractiveBackground';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
@@ -40,59 +41,61 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/pacientes"
-            element={
-              <ProtectedRoute>
-                <PatientList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/pacientes/novo"
-            element={
-              <ProtectedRoute>
-                <PatientForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/pacientes/:id"
-            element={
-              <ProtectedRoute>
-                <PatientProfile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </BrowserRouter>
+      <InteractiveBackground>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pacientes"
+              element={
+                <ProtectedRoute>
+                  <PatientList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pacientes/novo"
+              element={
+                <ProtectedRoute>
+                  <PatientForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pacientes/:id"
+              element={
+                <ProtectedRoute>
+                  <PatientProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </BrowserRouter>
+      </InteractiveBackground>
     </AuthProvider>
   );
 }

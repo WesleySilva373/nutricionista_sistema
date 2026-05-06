@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Sparkles, 
   Loader2, 
@@ -104,9 +104,9 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
 
   const getMealLabel = (key: string) => {
     switch (key) {
-      case 'cafe_da_manha': return 'Café da Manhã';
-      case 'lanche_manha': return 'Lanche da Manhã';
-      case 'almoco': return 'Almoço';
+      case 'cafe_da_manha': return 'CafÃ© da ManhÃ£';
+      case 'lanche_manha': return 'Lanche da ManhÃ£';
+      case 'almoco': return 'AlmoÃ§o';
       case 'lanche_tarde': return 'Lanche da Tarde';
       case 'jantar': return 'Jantar';
       default: return key.replace(/_/g, ' ');
@@ -114,12 +114,12 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
   };
 
   return (
-    <div className="meal-plan-generator" style={{ marginTop: '3rem', borderTop: '2px solid #f1f5f9', paddingTop: '3rem' }}>
+    <div className="meal-plan-generator" style={{ marginTop: '3rem', borderTop: '2px solid rgba(255, 255, 255, 0.08)', paddingTop: '3rem' }}>
       {!mealPlan && !loading && (
         <div className="empty-state" style={{ 
           textAlign: 'center', 
           padding: '4rem 2rem', 
-          backgroundColor: 'white', 
+          backgroundColor: 'transparent', 
           borderRadius: '24px', 
           border: '2px dashed #e2e8f0',
           display: 'flex',
@@ -131,7 +131,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             width: '80px', 
             height: '80px', 
             borderRadius: '20px', 
-            backgroundColor: '#f0fdf4', 
+            backgroundColor: 'rgba(0, 240, 255, 0.1)', 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
@@ -143,8 +143,8 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-color)', marginBottom: '0.5rem' }}>
               Plano Alimentar Inteligente
             </h3>
-            <p style={{ color: '#64748b', fontSize: '1.1rem', maxWidth: '500px', margin: '0 auto' }}>
-              Nossa IA analisará os dados clínicos, objetivos e restrições de <strong>{patient.nome}</strong> para criar um plano semanal único.
+            <p style={{ color: '#a1a1aa', fontSize: '1.1rem', maxWidth: '500px', margin: '0 auto' }}>
+              Nossa IA analisarÃ¡ os dados clÃ­nicos, objetivos e restriÃ§Ãµes de <strong>{patient.nome}</strong> para criar um plano semanal Ãºnico.
             </p>
           </div>
           <button 
@@ -161,7 +161,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             }} 
             onClick={generateMealPlan}
           >
-            <Sparkles size={22} /> Começar Geração
+            <Sparkles size={22} /> ComeÃ§ar GeraÃ§Ã£o
           </button>
         </div>
       )}
@@ -181,7 +181,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             </div>
           </div>
           <h3 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Criando o Plano Ideal...</h3>
-          <p style={{ color: '#64748b', marginTop: '0.5rem' }}>Processando restrições e calculando sugestões nutricionais.</p>
+          <p style={{ color: '#a1a1aa', marginTop: '0.5rem' }}>Processando restriÃ§Ãµes e calculando sugestÃµes nutricionais.</p>
         </div>
       )}
 
@@ -205,7 +205,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
           <p>{error}</p>
           <button 
             className="btn-secondary" 
-            style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#ef4444' }} 
+            style={{ backgroundColor: 'transparent', border: '1px solid #fee2e2', color: '#ef4444' }} 
             onClick={generateMealPlan}
           >
             Tentar novamente
@@ -226,20 +226,20 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             border: '1px solid #e2e8f0'
           }}>
             <div>
-              <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800 }}>Sugestão de Plano Semanal</h3>
-              <p style={{ color: '#64748b', margin: '4px 0 0' }}>Revise as opções abaixo e clique para editar se necessário.</p>
+              <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800 }}>SugestÃ£o de Plano Semanal</h3>
+              <p style={{ color: '#a1a1aa', margin: '4px 0 0' }}>Revise as opÃ§Ãµes abaixo e clique para editar se necessÃ¡rio.</p>
             </div>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button 
                 onClick={() => setMealPlan(null)} 
                 style={{ 
                   background: 'none', 
-                  border: '1px solid #cbd5e1', 
+                  border: '1px solid rgba(255, 255, 255, 0.2)', 
                   padding: '0.75rem 1.5rem', 
                   borderRadius: '10px', 
                   cursor: 'pointer',
                   fontWeight: 600,
-                  color: '#64748b'
+                  color: '#a1a1aa'
                 }}
               >
                 Descartar
@@ -259,11 +259,11 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
           <div className="days-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             {mealPlan?.plano_semanal?.map((dia: any, dayIndex: number) => (
               <div key={dia.dia || dayIndex} className="day-card" style={{ 
-                backgroundColor: 'white', 
+                backgroundColor: 'transparent', 
                 borderRadius: '20px', 
                 boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)', 
                 overflow: 'hidden', 
-                border: '1px solid #f1f5f9',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                 <div 
@@ -275,7 +275,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                     justifyContent: 'space-between', 
                     alignItems: 'center', 
                     cursor: 'pointer', 
-                    backgroundColor: expandedDay === dia.dia ? '#f0fdf4' : 'white',
+                    backgroundColor: expandedDay === dia.dia ? 'rgba(0, 240, 255, 0.1)' : 'transparent',
                     borderBottom: expandedDay === dia.dia ? '1px solid #dcfce7' : 'none',
                     transition: 'all 0.3s'
                   }}
@@ -286,7 +286,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                       height: '40px', 
                       borderRadius: '12px', 
                       backgroundColor: 'var(--primary-color)', 
-                      color: 'white',
+                      color: 'transparent',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -298,7 +298,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                     </div>
                     <span style={{ fontWeight: 800, fontSize: '1.3rem', color: 'var(--text-color)' }}>{dia.dia}</span>
                   </div>
-                  {expandedDay === dia.dia ? <ChevronUp size={28} color="var(--primary-color)" /> : <ChevronDown size={28} color="#94a3b8" />}
+                  {expandedDay === dia.dia ? <ChevronUp size={28} color="var(--primary-color)" /> : <ChevronDown size={28} color="#71717a" />}
                 </div>
 
                 {expandedDay === dia.dia && (
@@ -312,9 +312,9 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                             gap: '12px', 
                             marginBottom: '1.5rem', 
                             paddingBottom: '0.75rem',
-                            borderBottom: '2px solid #f1f5f9'
+                            borderBottom: '2px solid rgba(255, 255, 255, 0.08)'
                           }}>
-                            <div style={{ color: 'var(--primary-color)', backgroundColor: '#f0fdf4', padding: '8px', borderRadius: '10px' }}>
+                            <div style={{ color: 'var(--primary-color)', backgroundColor: 'rgba(0, 240, 255, 0.1)', padding: '8px', borderRadius: '10px' }}>
                               {getMealIcon(mealKey)}
                             </div>
                             <span style={{ 
@@ -322,7 +322,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                               fontSize: '0.95rem', 
                               textTransform: 'uppercase', 
                               letterSpacing: '0.15em',
-                              color: '#64748b'
+                              color: '#a1a1aa'
                             }}>
                               {getMealLabel(mealKey)}
                             </span>
@@ -345,7 +345,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                                       width: '100%',
                                       padding: '0.85rem 1.15rem', 
                                       fontSize: '1rem',
-                                      border: '2px solid #f1f5f9',
+                                      border: '2px solid rgba(255, 255, 255, 0.08)',
                                       borderRadius: '12px',
                                       backgroundColor: '#f8fafc',
                                       transition: 'all 0.2s',
@@ -354,13 +354,13 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                                       fontWeight: 500
                                     }}
                                     onFocus={(e) => {
-                                      e.currentTarget.style.backgroundColor = 'white';
+                                      e.currentTarget.style.backgroundColor = 'transparent';
                                       e.currentTarget.style.borderColor = 'var(--primary-color)';
                                       e.currentTarget.style.boxShadow = '0 0 0 4px rgba(46, 204, 113, 0.1)';
                                     }}
                                     onBlur={(e) => {
                                       e.currentTarget.style.backgroundColor = '#f8fafc';
-                                      e.currentTarget.style.borderColor = '#f1f5f9';
+                                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
                                       e.currentTarget.style.boxShadow = 'none';
                                     }}
                                   />
@@ -394,7 +394,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 gap: '8px', 
-                                background: 'white', 
+                                background: 'transparent', 
                                 border: '2px dashed #2ecc71', 
                                 color: 'var(--primary-color)', 
                                 cursor: 'pointer', 
@@ -407,15 +407,15 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
                                 transition: 'all 0.2s'
                               }}
                               onMouseOver={(e) => {
-                                e.currentTarget.style.backgroundColor = '#f0fdf4';
+                                e.currentTarget.style.backgroundColor = 'rgba(0, 240, 255, 0.1)';
                                 e.currentTarget.style.transform = 'translateY(-2px)';
                               }}
                               onMouseOut={(e) => {
-                                e.currentTarget.style.backgroundColor = 'white';
+                                e.currentTarget.style.backgroundColor = 'transparent';
                                 e.currentTarget.style.transform = 'translateY(0)';
                               }}
                             >
-                              <Plus size={18} /> Adicionar Opção
+                              <Plus size={18} /> Adicionar OpÃ§Ã£o
                             </button>
                           </div>
                         </div>
@@ -430,7 +430,7 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
           <div style={{ 
             marginTop: '3.5rem', 
             padding: '2.5rem',
-            backgroundColor: '#f0fdf4',
+            backgroundColor: 'rgba(0, 240, 255, 0.1)',
             borderRadius: '24px',
             border: '2px solid #dcfce7',
             textAlign: 'center',
@@ -439,13 +439,13 @@ export const MealPlanGenerator: React.FC<MealPlanGeneratorProps> = ({ patient, o
             alignItems: 'center',
             gap: '1.5rem'
           }}>
-            <div style={{ color: 'var(--primary-color)', backgroundColor: 'white', padding: '12px', borderRadius: '50%', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+            <div style={{ color: 'var(--primary-color)', backgroundColor: 'transparent', padding: '12px', borderRadius: '50%', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
               <Save size={32} />
             </div>
             <div>
               <h4 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0 }}>Tudo pronto!</h4>
               <p style={{ color: '#166534', marginTop: '0.5rem', fontSize: '1.1rem' }}>
-                Revise as opções acima e clique no botão para salvar o plano no perfil de {patient.nome}.
+                Revise as opÃ§Ãµes acima e clique no botÃ£o para salvar o plano no perfil de {patient.nome}.
               </p>
             </div>
             <button 
